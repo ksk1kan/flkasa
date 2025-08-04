@@ -119,6 +119,7 @@
       <option value="ofis">Ofis Harcaması</option>
       <option value="rent">Rent A Car Harcaması</option>
     </select>
+    <input type="date" id="tarih">
     <input type="text" id="aciklama" placeholder="Açıklama">
     <input type="number" id="tutar" placeholder="Tutar (₺)">
     <select id="fis">
@@ -127,7 +128,7 @@
     </select>
     <button onclick="saveEntry()">💾 Kaydet</button>
     <button onclick="resetAllData()">🗑️ Verileri Sıfırla</button>
-    <button onclick="exportToExcel()">📥 Excel'e Aktar</button>
+    <button onclick="downloadPDF()">📄 PDF'e Aktar</button>
   </div>
 
   <div class="tables" id="pdfArea">
@@ -166,7 +167,7 @@
     const aciklama = document.getElementById("aciklama").value;
     const tutar = parseFloat(document.getElementById("tutar").value);
     const fis = document.getElementById("fis").value;
-    const tarih = new Date().toLocaleDateString("tr-TR");
+    const tarih = document.getElementById("tarih").value || new Date().toLocaleDateString("tr-TR");
 
     if (!aciklama || isNaN(tutar)) {
       alert("Bilgiler eksik.");
@@ -194,6 +195,8 @@
     saveLocal();
     document.getElementById("aciklama").value = "";
     document.getElementById("tutar").value = "";
+    sortTableByDate(table);
+
   }
 
   function editRow(btn) {
@@ -291,6 +294,17 @@
     XLSX.utils.book_append_sheet(wb, ofisSheet, "Ofis Harcamaları");
     XLSX.utils.book_append_sheet(wb, rentSheet, "Rent A Car Harcamaları");
     XLSX.writeFile(wb, "kasa-harcamalari.xlsx");
+  }
+
+  
+  function sortTableByDate(table) {
+    const rows = Array.from(table.rows).slice(1);
+    rows.sort((a, b) => {
+      const dateA = new Date(a.cells[0].textContent.split('.').reverse().join('-'));
+      const dateB = new Date(b.cells[0].textContent.split('.').reverse().join('-'));
+      return dateA - dateB;
+    });
+    rows.forEach(row => table.appendChild(row));
   }
 
   window.onload = loadLocal;

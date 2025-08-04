@@ -1,15 +1,14 @@
 {
-  "name": "PWA Uygulama",
-  "short_name": "PWA",
-  "start_url": ".",
+  "name": "FL Kasa Takip",
+  "short_name": "KasaTakip",
+  "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#1e1e1e",
-  "theme_color": "#ff4c4c",
-  "orientation": "portrait",
+  "background_color": "#111111",
+  "theme_color": "#00bfa6",
   "icons": [
     {
-      "src": "https://i.ibb.co/q3YVD3t7/asdasdasdasdasdasd.png",
-      "sizes": "192x192",
+      "src": "favicon.png",
+      "sizes": "64x64",
       "type": "image/png"
     }
   ]

@@ -1,20 +1,18 @@
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open('pwa-cache-v1').then(cache => {
+self.addEventListener('install', function(e) {
+  e.waitUntil(
+    caches.open('kasa-cache').then(function(cache) {
       return cache.addAll([
         './',
         './index.html',
-        './manifest.json'
+        './favicon.png'
       ]);
     })
   );
-  self.skipWaiting();
 });
-
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request);
+self.addEventListener('fetch', function(e) {
+  e.respondWith(
+    caches.match(e.request).then(function(response) {
+      return response || fetch(e.request);
     })
   );
 });
