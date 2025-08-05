@@ -5,6 +5,15 @@
   <meta charset="UTF-8">
   <title>FL Kasa Takip</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="favicon.png">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js');
+      });
+    }
+  </script>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -158,6 +167,8 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
 <script>
   let selectedRow = null;
   let ofisToplam = 0, rentToplam = 0;
@@ -167,7 +178,10 @@
     const aciklama = document.getElementById("aciklama").value;
     const tutar = parseFloat(document.getElementById("tutar").value);
     const fis = document.getElementById("fis").value;
-    const tarih = document.getElementById("tarih").value || new Date().toLocaleDateString("tr-TR");
+    const tarihRaw = document.getElementById("tarih").value;
+    const tarih = tarihRaw
+      ? new Date(tarihRaw).toLocaleDateString("tr-TR")
+      : new Date().toLocaleDateString("tr-TR");
 
     if (!aciklama || isNaN(tutar)) {
       alert("Bilgiler eksik.");
@@ -196,7 +210,6 @@
     document.getElementById("aciklama").value = "";
     document.getElementById("tutar").value = "";
     sortTableByDate(table);
-
   }
 
   function editRow(btn) {
@@ -252,6 +265,16 @@
     }
   }
 
+  function sortTableByDate(table) {
+    const rows = Array.from(table.rows).slice(1);
+    rows.sort((a, b) => {
+      const dateA = new Date(a.cells[0].textContent.split('.').reverse().join('-'));
+      const dateB = new Date(b.cells[0].textContent.split('.').reverse().join('-'));
+      return dateA - dateB;
+    });
+    rows.forEach(row => table.appendChild(row));
+  }
+
   async function downloadPDF() {
     const area = document.getElementById("pdfArea");
     const canvas = await html2canvas(area, { scale: 3, width: area.scrollWidth });
@@ -272,7 +295,6 @@
     pdf.save("harcamalar-raporu.pdf");
   }
 
-  
   function resetAllData() {
     if (confirm("Tüm harcama kayıtları silinecek. Emin misin?")) {
       document.getElementById("ofisTablosu").innerHTML = "<tr><th>Tarih</th><th>Açıklama</th><th>Tutar</th><th>Fiş</th><th>İşlem</th></tr>";
@@ -284,31 +306,7 @@
     }
   }
 
-  
-  function exportToExcel() {
-    const wb = XLSX.utils.book_new();
-    const ofisTable = document.getElementById("ofisTablosu");
-    const rentTable = document.getElementById("rentTablosu");
-    const ofisSheet = XLSX.utils.table_to_sheet(ofisTable);
-    const rentSheet = XLSX.utils.table_to_sheet(rentTable);
-    XLSX.utils.book_append_sheet(wb, ofisSheet, "Ofis Harcamaları");
-    XLSX.utils.book_append_sheet(wb, rentSheet, "Rent A Car Harcamaları");
-    XLSX.writeFile(wb, "kasa-harcamalari.xlsx");
-  }
-
-  
-  function sortTableByDate(table) {
-    const rows = Array.from(table.rows).slice(1);
-    rows.sort((a, b) => {
-      const dateA = new Date(a.cells[0].textContent.split('.').reverse().join('-'));
-      const dateB = new Date(b.cells[0].textContent.split('.').reverse().join('-'));
-      return dateA - dateB;
-    });
-    rows.forEach(row => table.appendChild(row));
-  }
-
   window.onload = loadLocal;
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </body>
 </html>
