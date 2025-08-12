@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -15,102 +14,22 @@
     }
   </script>
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #111;
-      color: #eee;
-      margin: 0;
-      padding: 20px;
-    }
-    .container {
-      max-width: 1400px;
-      margin: auto;
-    }
-    .box {
-      background: #1d1d1d;
-      padding: 15px;
-      border-radius: 12px;
-      box-shadow: 0 0 12px rgba(0,255,200,0.1);
-      margin-bottom: 20px;
-    }
-    input, select, button {
-      width: 100%;
-      padding: 10px;
-      margin: 6px 0;
-      border-radius: 10px;
-      border: none;
-      background: #333;
-      color: #fff;
-      box-shadow: 0 0 6px rgba(0,255,200,0.4);
-    }
-    button {
-      background-color: #00bfa6;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #00e6ca;
-    }
-    .balance {
-      text-align: center;
-      font-size: 20px;
-      font-weight: bold;
-      color: #ff4b4b;
-    }
-    .tables {
-      display: flex;
-      flex-wrap: nowrap;
-      gap: 20px;
-      overflow-x: auto;
-    }
-    .half {
-      flex: 1;
-      min-width: 640px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-    }
-    th, td {
-      padding: 8px;
-      border-bottom: 1px solid #444;
-      text-align: center;
-    }
-    th {
-      background: #00bfa6;
-      color: #fff;
-    }
-    .header-title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .total-amount {
-      font-weight: bold;
-      font-size: 16px;
-      color: #ffd700;
-    }
-    .action-btn {
-      width: 32px;
-      height: 32px;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0 2px;
-      cursor: pointer;
-      border-radius: 6px;
-      border: none;
-      background-color: #00bfa6;
-      color: white;
-    }
-    #toplamHarcamalar {
-      text-align: center;
-      font-size: 18px;
-      font-weight: bold;
-      color: #ff4b4b;
-      margin-top: 20px;
-    }
+    body { font-family: 'Segoe UI', sans-serif; background-color: #111; color: #eee; margin: 0; padding: 20px; }
+    .container { max-width: 1400px; margin: auto; }
+    .box { background: #1d1d1d; padding: 15px; border-radius: 12px; box-shadow: 0 0 12px rgba(0,255,200,0.1); margin-bottom: 20px; }
+    input, select, button { width: 100%; padding: 10px; margin: 6px 0; border-radius: 10px; border: none; background: #333; color: #fff; box-shadow: 0 0 6px rgba(0,255,200,0.4); }
+    button { background-color: #00bfa6; font-weight: bold; cursor: pointer; }
+    button:hover { background-color: #00e6ca; }
+    .balance { text-align: center; font-size: 20px; font-weight: bold; color: #ff4b4b; }
+    .tables { display: flex; flex-wrap: nowrap; gap: 20px; overflow-x: auto; }
+    .half { flex: 1; min-width: 640px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { padding: 8px; border-bottom: 1px solid #444; text-align: center; }
+    th { background: #00bfa6; color: #fff; }
+    .header-title { display: flex; justify-content: space-between; align-items: center; }
+    .total-amount { font-weight: bold; font-size: 16px; color: #ffd700; }
+    .action-btn { width: 32px; height: 32px; display: inline-flex; justify-content: center; align-items: center; margin: 0 2px; cursor: pointer; border-radius: 6px; border: none; background-color: #00bfa6; color: white; }
+    #toplamHarcamalar { text-align: center; font-size: 18px; font-weight: bold; color: #ff4b4b; margin-top: 20px; }
   </style>
 </head>
 <body>
@@ -119,7 +38,7 @@
   <div class="box">
     <h2>💰 Başlangıç Kasası</h2>
     <input type="number" id="bakiye" placeholder="Örn: 1760" oninput="updateBalance(); saveLocal()">
-    <div class="balance" id="kalanKasa">Kalan Kasa: ₺0,00</div>
+    <div class="balance" id="kalanKasa">Kalan Kasa: ₺0</div>
   </div>
 
   <div class="box">
@@ -130,7 +49,7 @@
     </select>
     <input type="date" id="tarih">
     <input type="text" id="aciklama" placeholder="Açıklama">
-    <input type="number" id="tutar" placeholder="Tutar (₺)">
+    <input type="number" id="tutar" step="0.01" placeholder="Tutar (₺)">
     <select id="fis">
       <option value="Var">Fiş Var</option>
       <option value="Yok">Fiş Yok</option>
@@ -144,7 +63,7 @@
     <div class="box half">
       <div class="header-title">
         <h3>📁 Ofis Harcamaları</h3>
-        <div class="total-amount" id="ofisToplamGoster">Toplam: ₺0,00</div>
+        <div class="total-amount" id="ofisToplamGoster">Toplam: ₺0</div>
       </div>
       <table id="ofisTablosu">
         <tr><th>Tarih</th><th>Açıklama</th><th>Tutar</th><th>Fiş</th><th>İşlem</th></tr>
@@ -154,7 +73,7 @@
     <div class="box half">
       <div class="header-title">
         <h3>🚗 Rent A Car Harcamaları</h3>
-        <div class="total-amount" id="rentToplamGoster">Toplam: ₺0,00</div>
+        <div class="total-amount" id="rentToplamGoster">Toplam: ₺0</div>
       </div>
       <table id="rentTablosu">
         <tr><th>Tarih</th><th>Açıklama</th><th>Tutar</th><th>Fiş</th><th>İşlem</th></tr>
@@ -162,7 +81,7 @@
     </div>
   </div>
 
-  <div id="toplamHarcamalar">Toplam Harcama: ₺0,00</div>
+  <div id="toplamHarcamalar">Toplam Harcama: ₺0</div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -173,96 +92,129 @@
   let selectedRow = null;
   let ofisToplam = 0, rentToplam = 0;
 
+  function trDateFromInput(value) {
+    return value ? new Date(value).toLocaleDateString('tr-TR') : new Date().toLocaleDateString('tr-TR');
+  }
+
+  function formatMoney(n) {
+    const nNum = Number(n) || 0;
+    const parts = nNum.toString().split('.');
+    const hasDec = parts.length > 1 && Number(parts[1]) !== 0;
+    const decLen = hasDec ? parts[1].length : 0;
+    return '₺' + nNum.toLocaleString('tr-TR', { minimumFractionDigits: hasDec ? decLen : 0, maximumFractionDigits: hasDec ? decLen : 0 });
+  }
+
   function saveEntry() {
-    const kategori = document.getElementById("kategori").value;
-    const aciklama = document.getElementById("aciklama").value;
-    const tutar = parseFloat(document.getElementById("tutar").value);
-    const fis = document.getElementById("fis").value;
-    const tarihRaw = document.getElementById("tarih").value;
-    const tarih = tarihRaw
-      ? new Date(tarihRaw).toLocaleDateString("tr-TR")
-      : new Date().toLocaleDateString("tr-TR");
+    const kategori = document.getElementById('kategori').value;
+    const aciklama = document.getElementById('aciklama').value.trim();
+    const tutar = parseFloat(document.getElementById('tutar').value);
+    const fis = document.getElementById('fis').value;
+    const tarih = trDateFromInput(document.getElementById('tarih').value);
 
     if (!aciklama || isNaN(tutar)) {
-      alert("Bilgiler eksik.");
+      alert('Bilgiler eksik.');
       return;
     }
 
-    const table = kategori === "ofis" ? document.getElementById("ofisTablosu") : document.getElementById("rentTablosu");
+    const table = (kategori === 'ofis') ? document.getElementById('ofisTablosu') : document.getElementById('rentTablosu');
 
     if (selectedRow) {
+      selectedRow.cells[0].textContent = tarih;
       selectedRow.cells[1].textContent = aciklama;
-      selectedRow.cells[2].textContent = `₺${tutar.toFixed(2)}`;
+      const td = selectedRow.cells[2];
+      td.setAttribute('data-amount', tutar);
+      td.textContent = formatMoney(tutar);
       selectedRow.cells[3].textContent = fis;
       selectedRow = null;
     } else {
       const row = table.insertRow();
-      row.innerHTML = `<td>${tarih}</td><td>${aciklama}</td><td>₺${tutar.toFixed(2)}</td><td>${fis}</td>
+      row.innerHTML = `<td>${tarih}</td><td>${aciklama}</td><td data-amount="${tutar}">${formatMoney(tutar)}</td><td>${fis}</td>
         <td><button class="action-btn" onclick="editRow(this)">🖉</button>
         <button class="action-btn" onclick="deleteRow(this)">🗑️</button></td>`;
     }
 
-    if (kategori === "ofis") ofisToplam += tutar;
-    else rentToplam += tutar;
-
-    updateBalance();
-    saveLocal();
-    document.getElementById("aciklama").value = "";
-    document.getElementById("tutar").value = "";
     sortTableByDate(table);
+    recomputeTotals();
+    document.getElementById('aciklama').value = '';
+    document.getElementById('tutar').value = '';
   }
 
   function editRow(btn) {
     selectedRow = btn.parentElement.parentElement;
-    document.getElementById("aciklama").value = selectedRow.cells[1].textContent;
-    document.getElementById("tutar").value = selectedRow.cells[2].textContent.replace("₺", "");
-    document.getElementById("fis").value = selectedRow.cells[3].textContent;
+    document.getElementById('aciklama').value = selectedRow.cells[1].textContent;
+    const amount = parseFloat(selectedRow.cells[2].getAttribute('data-amount') || '0');
+    document.getElementById('tutar').value = amount;
+    document.getElementById('fis').value = selectedRow.cells[3].textContent;
+    const parts = selectedRow.cells[0].textContent.split('.');
+    if (parts.length === 3) {
+      document.getElementById('tarih').value = `${parts[2]}-${parts[1]}-${parts[0]}`;
+    }
+    const parentId = selectedRow.parentElement.parentElement.id;
+    document.getElementById('kategori').value = (parentId === 'ofisTablosu') ? 'ofis' : 'rent';
   }
 
   function deleteRow(btn) {
     const row = btn.parentElement.parentElement;
-    const tutar = parseFloat(row.cells[2].textContent.replace("₺", ""));
-    const isOfis = row.parentElement.parentElement.id === "ofisTablosu";
     row.remove();
+    recomputeTotals();
+  }
 
-    if (isOfis) ofisToplam -= tutar;
-    else rentToplam -= tutar;
-
+  function recomputeTotals() {
+    ofisToplam = sumTable('ofisTablosu');
+    rentToplam = sumTable('rentTablosu');
     updateBalance();
     saveLocal();
   }
 
+  function sumTable(tableId) {
+    const table = document.getElementById(tableId);
+    let sum = 0;
+    Array.from(table.rows).slice(1).forEach(tr => {
+      const td = tr.cells[2];
+      const val = parseFloat(td?.getAttribute('data-amount') || '0');
+      if (!isNaN(val)) sum += val;
+    });
+    return sum;
+  }
+
   function updateBalance() {
-    const bakiye = parseFloat(document.getElementById("bakiye").value) || 0;
-    const kalan = bakiye - (ofisToplam + rentToplam);
+    const bakiye = parseFloat(document.getElementById('bakiye').value) || 0;
     const toplam = ofisToplam + rentToplam;
-    document.getElementById("kalanKasa").textContent = `Kalan Kasa: ₺${kalan.toFixed(2)}`;
-    document.getElementById("ofisToplamGoster").textContent = `Toplam: ₺${ofisToplam.toFixed(2)}`;
-    document.getElementById("rentToplamGoster").textContent = `Toplam: ₺${rentToplam.toFixed(2)}`;
-    document.getElementById("toplamHarcamalar").textContent = `Toplam Harcama: ₺${toplam.toFixed(2)}`;
+    const kalan = bakiye - toplam;
+    document.getElementById('kalanKasa').textContent = `Kalan Kasa: ${formatMoney(kalan)}`;
+    document.getElementById('ofisToplamGoster').textContent = `Toplam: ${formatMoney(ofisToplam)}`;
+    document.getElementById('rentToplamGoster').textContent = `Toplam: ${formatMoney(rentToplam)}`;
+    document.getElementById('toplamHarcamalar').textContent = `Toplam Harcama: ${formatMoney(toplam)}`;
   }
 
   function saveLocal() {
     const data = {
-      bakiye: document.getElementById("bakiye").value,
-      ofis: document.getElementById("ofisTablosu").innerHTML,
-      rent: document.getElementById("rentTablosu").innerHTML,
-      ofisToplam,
-      rentToplam
+      bakiye: document.getElementById('bakiye').value,
+      ofis: document.getElementById('ofisTablosu').innerHTML,
+      rent: document.getElementById('rentTablosu').innerHTML
     };
-    localStorage.setItem("kasaData", JSON.stringify(data));
+    localStorage.setItem('kasaData', JSON.stringify(data));
   }
 
   function loadLocal() {
-    const data = JSON.parse(localStorage.getItem("kasaData"));
+    const data = JSON.parse(localStorage.getItem('kasaData'));
     if (data) {
-      document.getElementById("bakiye").value = data.bakiye;
-      document.getElementById("ofisTablosu").innerHTML = data.ofis;
-      document.getElementById("rentTablosu").innerHTML = data.rent;
-      ofisToplam = data.ofisToplam || 0;
-      rentToplam = data.rentToplam || 0;
-      updateBalance();
+      document.getElementById('bakiye').value = data.bakiye || '';
+      document.getElementById('ofisTablosu').innerHTML = data.ofis || "<tr><th>Tarih</th><th>Açıklama</th><th>Tutar</th><th>Fiş</th><th>İşlem</th></tr>";
+      document.getElementById('rentTablosu').innerHTML = data.rent || "<tr><th>Tarih</th><th>Açıklama</th><th>Tutar</th><th>Fiş</th><th>İşlem</th></tr>";
+      // backfill data-amount for old entries
+      ['ofisTablosu','rentTablosu'].forEach(id => {
+        Array.from(document.getElementById(id).rows).slice(1).forEach(tr => {
+          const td = tr.cells[2];
+          if (td && !td.getAttribute('data-amount')) {
+            const raw = (td.textContent || '').replace(/[₺\s]/g,'').replace(/\./g,'').replace(',', '.');
+            const num = parseFloat(raw);
+            if (!isNaN(num)) td.setAttribute('data-amount', num), td.textContent = formatMoney(num);
+          }
+        });
+      });
     }
+    recomputeTotals();
   }
 
   function sortTableByDate(table) {
@@ -276,33 +228,31 @@
   }
 
   async function downloadPDF() {
-    const area = document.getElementById("pdfArea");
+    const area = document.getElementById('pdfArea');
     const canvas = await html2canvas(area, { scale: 3, width: area.scrollWidth });
-    const imgData = canvas.toDataURL("image/png");
-    const toplamYazi = document.getElementById("toplamHarcamalar").textContent;
+    const imgData = canvas.toDataURL('image/png');
+    const toplamYazi = document.getElementById('toplamHarcamalar').textContent;
 
-    const pdf = new window.jspdf.jsPDF("landscape", "pt", "a4");
+    const pdf = new window.jspdf.jsPDF('landscape', 'pt', 'a4');
     const pdfWidth = pdf.internal.pageSize.getWidth();
     const imgProps = { width: canvas.width, height: canvas.height };
     const ratio = pdfWidth / imgProps.width;
     const pdfHeight = imgProps.height * ratio;
 
-    pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-    pdf.setFont("helvetica", "bold");
+    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    pdf.setFont('helvetica', 'bold');
     pdf.setFontSize(18);
     pdf.setTextColor(255, 0, 0);
-    pdf.text(toplamYazi, pdfWidth / 2, pdfHeight + 30, { align: "center" });
-    pdf.save("harcamalar-raporu.pdf");
+    pdf.text(toplamYazi, pdfWidth / 2, pdfHeight + 30, { align: 'center' });
+    pdf.save('harcamalar-raporu.pdf');
   }
 
   function resetAllData() {
-    if (confirm("Tüm harcama kayıtları silinecek. Emin misin?")) {
-      document.getElementById("ofisTablosu").innerHTML = "<tr><th>Tarih</th><th>Açıklama</th><th>Tutar</th><th>Fiş</th><th>İşlem</th></tr>";
-      document.getElementById("rentTablosu").innerHTML = "<tr><th>Tarih</th><th>Açıklama</th><th>Tutar</th><th>Fiş</th><th>İşlem</th></tr>";
-      ofisToplam = 0;
-      rentToplam = 0;
-      updateBalance();
-      saveLocal();
+    if (confirm('Tüm harcama kayıtları silinecek. Emin misin?')) {
+      document.getElementById('ofisTablosu').innerHTML = "<tr><th>Tarih</th><th>Açıklama</th><th>Tutar</th><th>Fiş</th><th>İşlem</th></tr>";
+      document.getElementById('rentTablosu').innerHTML = "<tr><th>Tarih</th><th>Açıklama</th><th>Tutar</th><th>Fiş</th><th>İşlem</th></tr>";
+      localStorage.removeItem('kasaData');
+      recomputeTotals();
     }
   }
 
